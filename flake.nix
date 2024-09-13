@@ -43,7 +43,6 @@
             curl
             lz4   # Include LZ4 compression library
             p7zip # Include 7zip
-            
             pkg-config
           ];
 
@@ -55,7 +54,6 @@
             curl
             lz4   # Include LZ4 compression library
             p7zip # Include 7zip
-            
             pkg-config
           ];
 
@@ -109,16 +107,7 @@
           # Add other build-time dependencies if needed
         };
 
-      };
-
-      # Provide some binary packages for selected system types.
-      packages = forAllSystems (system:
-        let
-          lamprayBin = nixpkgsFor.${system}.lampray;
-        in
-        with nixpkgsFor.${system}; rec {
-          lampray = lamprayBin;
-          lampw = writeShellScriptBin "lampw" ''
+        lampw = with final; writeShellScriptBin "lampw" ''
             #!/usr/bin/env bash
 
             # Ensure Lampray directory exists
@@ -138,9 +127,20 @@
               sed -i 's|<bit7zLibaryLocation></bit7zLibaryLocation>|<bit7zLibaryLocation>${p7zip}/lib/p7zip/7z.so</bit7zLibaryLocation>|' "$CONFIG_FILE"
             fi
 
-            exec ${lamprayBin}/bin/Lampray "$@"
+            exec ${lampray}/bin/Lampray "$@"
 
           '';
+      };
+
+      # Provide some binary packages for selected system types.
+      packages = forAllSystems (system:
+        let
+          lamprayBin = nixpkgsFor.${system}.lampray;
+          lampwBin = nixpkgsFor.${system}.lampw;
+        in
+        with nixpkgsFor.${system}; rec {
+          lampray = lamprayBin;
+          lampw = lampwBin;
         }
       );
 
