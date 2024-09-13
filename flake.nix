@@ -43,7 +43,7 @@
             curl
             lz4   # Include LZ4 compression library
             p7zip # Include 7zip
-            zenity
+            
             pkg-config
           ];
 
@@ -55,7 +55,7 @@
             curl
             lz4   # Include LZ4 compression library
             p7zip # Include 7zip
-            zenity
+            
             pkg-config
           ];
 
@@ -171,7 +171,7 @@
             curl
             lz4
             p7zip
-            zenity
+            
           ];
           shellHook = ''
             export LD_LIBRARY_PATH=${lib.makeLibraryPath [ lz4 ]}:$LD_LIBRARY_PATH
