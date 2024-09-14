@@ -47,14 +47,12 @@
           ];
 
           buildInputs = [
-            cmake
-            ninja
-            gcc
             SDL2
             curl
             lz4   # Include LZ4 compression library
             p7zip # Include 7zip
             pkg-config
+            unzip
           ];
 
           # Locate the 7z.so path from Nix store
