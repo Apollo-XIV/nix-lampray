@@ -115,7 +115,7 @@
             CONFIG_FILE=~/.lampray/Lamp_Data/Config/conf.mdf
             if [ -f "$CONFIG_FILE" ]; then
               # Modify bit7zLibraryLocation
-              sed -i 's|<bit7zLibaryLocation></bit7zLibaryLocation>|<bit7zLibaryLocation>${p7zip}/lib/p7zip/7z.so</bit7zLibaryLocation>|' "$CONFIG_FILE"
+              sed -i 's|<bit7zLibaryLocation></bit7zLibaryLocation>|<bit7zLibaryLocation>${p7zip}/bin/7z</bit7zLibaryLocation>|' "$CONFIG_FILE"
             fi
 
             exec ${lampray}/bin/Lampray "$@"
