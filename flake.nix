@@ -44,6 +44,8 @@
             lz4   # Include LZ4 compression library
             p7zip # Include 7zip
             pkg-config
+            git
+            bash
           ];
 
           buildInputs = [
@@ -68,21 +70,12 @@
             # Change directory to the build directory
             cd $TMPDIR/build
 
+            # bash setup.sh
             # Run the build script in the build directory
             echo "Running build.sh"
-            # ./setup.sh
             # mkdir -p ./build
-            cat build.sh
 
-            BUILD_TYPE=$${1:-Debug}
-
-            cmake -DCMAKE_BUILD_TYPE=$$BUILD_TYPE -DCMAKE_MAKE_PROGRAM=ninja -B ./build -G Ninja -S ./
-
-            # do ninja things
-            cd ./build || exit 1 # exit if build directory doesn't exist
-            ninja
-
-            echo "📦 Build complete"
+            bash build.sh
           '';
 
           # Install the binary into the nix store
